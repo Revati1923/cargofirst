@@ -1,14 +1,4 @@
-/**
- * routes/jobs.js
- * AI-generated scaffold for job posting endpoints.
- * Contract:
- * - POST /api/jobs  (auth required) -> create job
- * - GET /api/jobs   -> get all jobs
- * - GET /api/jobs/myjobs (auth required) -> jobs posted by user
- * - GET /api/jobs/analytics (auth required) -> simple analytics
- *
- * Human tasks: input validation, update/delete endpoints, secure ownership checks.
- */
+
 
 const express = require('express');
 const router = express.Router();
@@ -16,7 +6,7 @@ const { check, validationResult } = require('express-validator');
 const Job = require('../models/Job');
 const auth = require('../middleware/auth');
 
-// Validation middleware
+
 const jobValidation = [
     check('jobTitle', 'Job title is required').not().isEmpty(),
     check('jobDescription', 'Job description is required').not().isEmpty(),
@@ -89,7 +79,7 @@ router.put('/:id', [auth, jobValidation], async (req, res) => {
     }
 });
 
-// Delete a job posting
+
 router.delete('/:id', auth, async (req, res) => {
     try {
         const job = await Job.findById(req.params.id);
@@ -97,7 +87,7 @@ router.delete('/:id', auth, async (req, res) => {
             return res.status(404).json({ msg: 'Job not found' });
         }
 
-        // Check ownership
+      
         if (job.postedBy.toString() !== req.user.id) {
             return res.status(403).json({ msg: 'Not authorized to delete this job' });
         }
@@ -113,7 +103,7 @@ router.delete('/:id', auth, async (req, res) => {
     }
 });
 
-// Get all jobs
+
 router.get('/', async (req, res) => {
     try {
         const jobs = await Job.find().sort({ createdAt: -1 });
@@ -124,7 +114,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Get jobs by user
+
 router.get('/myjobs', auth, async (req, res) => {
     try {
         const jobs = await Job.find({ postedBy: req.user.id }).sort({ createdAt: -1 });
@@ -135,7 +125,7 @@ router.get('/myjobs', auth, async (req, res) => {
     }
 });
 
-// Get job analytics
+
 router.get('/analytics', auth, async (req, res) => {
     try {
         const totalJobs = await Job.countDocuments({ postedBy: req.user.id });
@@ -157,5 +147,6 @@ router.get('/analytics', auth, async (req, res) => {
         res.status(500).send('Server error');
     }
 });
+
 
 module.exports = router;
