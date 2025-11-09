@@ -55,7 +55,7 @@ const CustomerAnalysis = () => {
 
   return (
     <>
-      {/* ✅ INTERNAL CSS FIXED */}
+     
       <style>{`
         .analysis-container {
           background:#557da5ff;;
@@ -120,7 +120,7 @@ const CustomerAnalysis = () => {
         }
       `}</style>
 
-      {/* ✅ Page UI without breaking Navbar */}
+      
       <div className="analysis-container">
         <div className="analytics-card">
           <h2 className="analytics-heading">Customer Analysis</h2>
