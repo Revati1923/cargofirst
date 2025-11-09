@@ -1,13 +1,3 @@
-/**
- * routes/auth.js
- * AI-generated scaffold for authentication endpoints.
- * Contract:
- * - POST /register { name, email, password, companyName } -> { token }
- * - POST /login { email, password } -> { token }
- * Error modes: returns 400 for invalid credentials or existing user, 500 for server errors.
- *
- * Human tasks: add input validation, stronger error messages, rate-limiting, email verification.
- */
 
 const express = require('express');
 const router = express.Router();
@@ -141,5 +131,6 @@ router.get('/me', require('../middleware/auth'), async (req, res) => {
         res.status(500).send('Server error');
     }
 });
+
 
 module.exports = router;
